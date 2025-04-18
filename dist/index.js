@@ -31,4 +31,22 @@ const getFoodDetatilss = (identifier) => {
         return menu.find((item) => item.name.toLocaleLowerCase() === identifier.toLocaleLowerCase());
     }
 };
+const user = [
+    { name: "aginas", password: "12345678", role: "admin" },
+    { name: "rinshad", password: "12345678", role: "customer" },
+    { name: "minhaj", password: "12345678", role: "guest" },
+];
+const fetchUserDetails = (userName) => {
+    const userDetail = user.find((item) => item.name === userName);
+    if (!userDetail) {
+        throw new Error("user not found");
+    }
+    return userDetail;
+};
+let phone = "7907412136";
+phone = 7907412136;
+phone = true;
+const addNewUser = () => {
+    user.push({ name: "aginas", password: "12345678", role: "guest" });
+};
 //# sourceMappingURL=index.js.map

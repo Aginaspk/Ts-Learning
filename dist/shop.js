@@ -1,13 +1,14 @@
 "use strict";
-const menu = [
-    { id: 1, name: "biriyani", price: 8 },
-    { id: 2, name: "friedrice", price: 7 },
-    { id: 3, name: "noodles", price: 4 },
-    { id: 4, name: "mandhi", price: 10 },
-];
 let cashinRegister = 100;
-const orderQueue = [];
+let nextMenuId = 1;
 let nextOrderId = 1;
+const menu = [
+    { id: nextMenuId++, name: "biriyani", price: 8 },
+    { id: nextMenuId++, name: "friedrice", price: 7 },
+    { id: nextMenuId++, name: "noodles", price: 4 },
+    { id: nextMenuId++, name: "mandhi", price: 10 },
+];
+const orderQueue = [];
 const getFoodDetatils = (identifier) => {
     if (typeof identifier === "number") {
         return menu.find((item) => item.id === identifier);
@@ -42,9 +43,9 @@ const completeOrder = (orderId) => {
     order.status = "completed";
     return order;
 };
-addItemToMenu({ id: 5, name: "chicken chilli", price: 12 });
-addItemToMenu({ id: 6, name: "chicken kondattam", price: 10 });
-addItemToMenu({ id: 7, name: "chicken pollichath", price: 15 });
+addItemToMenu({ id: nextMenuId++, name: "chicken chilli", price: 12 });
+addItemToMenu({ id: nextMenuId++, name: "chicken kondattam", price: 10 });
+addItemToMenu({ id: nextMenuId++, name: "chicken pollichath", price: 15 });
 placeOrder("biriyani");
 completeOrder(1);
 console.log(menu);

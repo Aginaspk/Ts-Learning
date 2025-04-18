@@ -61,4 +61,47 @@ const getFoodDetatilss = (identifier: number | string) => {
   }
 };
 
+type Userr = {
+  id: number;
+  name: string;
+  password: string;
+  role: Role;
+};
+// Function return type
+const user: Userr[] = [
+  { id: 1, name: "aginas", password: "12345678", role: "admin" },
+  { id: 2, name: "rinshad", password: "12345678", role: "customer" },
+  { id: 3, name: "minhaj", password: "12345678", role: "guest" },
+];
 
+const fetchUserDetails = (userName: string): User => {
+  const userDetail = user.find((item) => item.name === userName);
+  if (!userDetail) {
+    throw new Error("user not found");
+  }
+  return userDetail;
+};
+
+//any but dont use this 😅
+let phone: any = "7907412136";
+phone = 7907412136; // now we can assign any type for eg --> number
+phone = true; // for eg --> boolean
+
+//void
+const addNewUser = (): void => {
+  user.push({ id: 2, name: "aginas", password: "12345678", role: "guest" });
+}; // return type is void because it return nothing
+
+
+//built in Utilty fn
+type Update = Partial<Userr>;// partial utility its liek optional
+const updateUser = (id: number, update: Update) => {
+  const updatingUser = user.find((item) => item.id === id);
+  if (!updatingUser) {
+    console.log("user not found");
+    return;
+  }
+  Object.assign(updatingUser, update);
+};
+
+updateUser(1, { name: "aginaspkkkk" });

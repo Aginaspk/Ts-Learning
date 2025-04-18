@@ -9,19 +9,20 @@ type Order = {
   food: Dish;
   status: "ordered" | "completed";
 };
-
-const menu = [
-  { id: 1, name: "biriyani", price: 8 },
-  { id: 2, name: "friedrice", price: 7 },
-  { id: 3, name: "noodles", price: 4 },
-  { id: 4, name: "mandhi", price: 10 },
-];
-
 let cashinRegister = 100;
-const orderQueue: Order[] = [];
+let nextMenuId = 1;
 let nextOrderId = 1;
 
-const getFoodDetatils = (identifier: number | string) => {
+const menu = [
+  { id: nextMenuId++, name: "biriyani", price: 8 },
+  { id: nextMenuId++, name: "friedrice", price: 7 },
+  { id: nextMenuId++, name: "noodles", price: 4 },
+  { id: nextMenuId++, name: "mandhi", price: 10 },
+];
+
+const orderQueue: Order[] = [];
+
+const getFoodDetatils = (identifier: number | string): Dish | undefined => {
   if (typeof identifier === "number") {
     return menu.find((item) => item.id === identifier);
   } else if (typeof identifier === "string") {
@@ -33,11 +34,12 @@ const getFoodDetatils = (identifier: number | string) => {
   }
 };
 
-const addItemToMenu = (item: Dish) => {
+const addItemToMenu = (item: Dish): void => {
+  item.id = nextMenuId++;
   menu.push(item);
 };
 
-const placeOrder = (OrderItem: string) => {
+const placeOrder = (OrderItem: string): Order | undefined => {
   const item = menu.find((i) => i.name === OrderItem);
   if (!item) {
     console.error(`${OrderItem} not available`);
@@ -49,7 +51,7 @@ const placeOrder = (OrderItem: string) => {
   return order;
 };
 
-const completeOrder = (orderId: number) => {
+const completeOrder = (orderId: number): Order | undefined => {
   const order = orderQueue.find((item) => item.id === orderId);
   if (!order) {
     console.error(`No order found on this Id ${orderId}`);
@@ -59,9 +61,9 @@ const completeOrder = (orderId: number) => {
   return order;
 };
 
-addItemToMenu({ id: 5, name: "chicken chilli", price: 12 });
-addItemToMenu({ id: 6, name: "chicken kondattam", price: 10 });
-addItemToMenu({ id: 7, name: "chicken pollichath", price: 15 });
+addItemToMenu({ name: "chicken chilli", price: 12 });
+addItemToMenu({ name: "chicken kondattam", price: 10 });
+addItemToMenu({ name: "chicken pollichath", price: 15 });
 
 placeOrder("biriyani");
 completeOrder(1);
