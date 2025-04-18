@@ -14,4 +14,21 @@ const customer1 = {
     email: "aginaspk6@gmail.com",
 };
 const users = [customer, customer1];
+let myName = "aginaspk";
+const myName2 = "aginaspk";
+let myName3 = "aginaspk";
+const customer10 = {
+    name: "aginaspk",
+    password: "qwe123",
+    role: "customer",
+};
+let userRole = "admin";
+const getFoodDetatilss = (identifier) => {
+    if (typeof identifier === "number") {
+        return menu.find((item) => item.id === identifier);
+    }
+    else {
+        return menu.find((item) => item.name.toLocaleLowerCase() === identifier.toLocaleLowerCase());
+    }
+};
 //# sourceMappingURL=index.js.map
