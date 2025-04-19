@@ -67,6 +67,7 @@ type Userr = {
   password: string;
   role: Role;
 };
+let newUserIdd = 3;
 // Function return type
 const user: Userr[] = [
   { id: 1, name: "aginas", password: "12345678", role: "admin" },
@@ -92,9 +93,8 @@ const addNewUser = (): void => {
   user.push({ id: 2, name: "aginas", password: "12345678", role: "guest" });
 }; // return type is void because it return nothing
 
-
 //built in Utilty fn
-type Update = Partial<Userr>;// partial utility its liek optional
+type Update = Partial<Userr>; // partial utility its liek optional
 const updateUser = (id: number, update: Update) => {
   const updatingUser = user.find((item) => item.id === id);
   if (!updatingUser) {
@@ -105,3 +105,13 @@ const updateUser = (id: number, update: Update) => {
 };
 
 updateUser(1, { name: "aginaspkkkk" });
+
+//omit utility
+const addNewUsers = (newUser: Omit<Userr,"id" | "role">): Userr => {
+  let uuser: Userr = { id: newUserIdd++,...newUser,role:"admin" };
+  user.push(uuser);
+  return uuser;
+};//Omit omit data type from type
+
+addNewUsers({name:"agi",password:"1234"})
+

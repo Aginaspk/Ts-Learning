@@ -34,9 +34,10 @@ const getFoodDetatils = (identifier: number | string): Dish | undefined => {
   }
 };
 
-const addItemToMenu = (item: Dish): void => {
-  item.id = nextMenuId++;
-  menu.push(item);
+const addItemToMenu = (item: Omit<Dish, "id">): Dish => {
+  let newItem = { id: nextMenuId++, ...item };
+  menu.push(newItem);
+  return newItem;
 };
 
 const placeOrder = (OrderItem: string): Order | undefined => {
@@ -61,12 +62,26 @@ const completeOrder = (orderId: number): Order | undefined => {
   return order;
 };
 
-addItemToMenu({ name: "chicken chilli", price: 12 });
-addItemToMenu({ name: "chicken kondattam", price: 10 });
-addItemToMenu({ name: "chicken pollichath", price: 15 });
+const addToArray = <Type>(array: Type[], item: Type): Type[] => {
+  array.push(item);
+  return array;
+};
+
+addToArray<Dish>(menu, { id: nextMenuId++, name: "chicken chilli", price: 12 });
+addToArray<Order>(orderQueue, {
+  id: nextOrderId++,
+  food: menu[2],
+  status: "completed",
+});
+
+// addItemToMenu({ name: "chicken chilli", price: 12 });
+// addItemToMenu({ name: "chicken kondattam", price: 10 });
+// addItemToMenu({ name: "chicken pollichath", price: 15 });
 
 placeOrder("biriyani");
+placeOrder("chicken pollichath");
 completeOrder(1);
+completeOrder(2);
 
 console.log(menu);
 console.log(cashinRegister);

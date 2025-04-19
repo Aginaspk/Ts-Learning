@@ -21,7 +21,9 @@ const getFoodDetatils = (identifier) => {
     }
 };
 const addItemToMenu = (item) => {
-    menu.push(item);
+    let newItem = Object.assign({ id: nextMenuId++ }, item);
+    menu.push(newItem);
+    return newItem;
 };
 const placeOrder = (OrderItem) => {
     const item = menu.find((i) => i.name === OrderItem);
@@ -43,11 +45,20 @@ const completeOrder = (orderId) => {
     order.status = "completed";
     return order;
 };
-addItemToMenu({ id: nextMenuId++, name: "chicken chilli", price: 12 });
-addItemToMenu({ id: nextMenuId++, name: "chicken kondattam", price: 10 });
-addItemToMenu({ id: nextMenuId++, name: "chicken pollichath", price: 15 });
+const addToArray = (array, item) => {
+    array.push(item);
+    return array;
+};
+addToArray(menu, { id: nextMenuId++, name: "chicken chilli", price: 12 });
+addToArray(orderQueue, {
+    id: nextOrderId++,
+    food: menu[2],
+    status: "completed",
+});
 placeOrder("biriyani");
+placeOrder("chicken pollichath");
 completeOrder(1);
+completeOrder(2);
 console.log(menu);
 console.log(cashinRegister);
 console.log(orderQueue);

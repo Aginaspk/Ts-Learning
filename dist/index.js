@@ -31,10 +31,11 @@ const getFoodDetatilss = (identifier) => {
         return menu.find((item) => item.name.toLocaleLowerCase() === identifier.toLocaleLowerCase());
     }
 };
+let newUserIdd = 3;
 const user = [
-    { name: "aginas", password: "12345678", role: "admin" },
-    { name: "rinshad", password: "12345678", role: "customer" },
-    { name: "minhaj", password: "12345678", role: "guest" },
+    { id: 1, name: "aginas", password: "12345678", role: "admin" },
+    { id: 2, name: "rinshad", password: "12345678", role: "customer" },
+    { id: 3, name: "minhaj", password: "12345678", role: "guest" },
 ];
 const fetchUserDetails = (userName) => {
     const userDetail = user.find((item) => item.name === userName);
@@ -47,6 +48,21 @@ let phone = "7907412136";
 phone = 7907412136;
 phone = true;
 const addNewUser = () => {
-    user.push({ name: "aginas", password: "12345678", role: "guest" });
+    user.push({ id: 2, name: "aginas", password: "12345678", role: "guest" });
 };
+const updateUser = (id, update) => {
+    const updatingUser = user.find((item) => item.id === id);
+    if (!updatingUser) {
+        console.log("user not found");
+        return;
+    }
+    Object.assign(updatingUser, update);
+};
+updateUser(1, { name: "aginaspkkkk" });
+const addNewUsers = (newUser) => {
+    let uuser = Object.assign(Object.assign({ id: newUserIdd++ }, newUser), { role: "admin" });
+    user.push(uuser);
+    return uuser;
+};
+addNewUsers({ name: "agi", password: "1234" });
 //# sourceMappingURL=index.js.map
